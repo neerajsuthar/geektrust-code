@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import geektrust.problems.entities.Individual;
 import geektrust.problems.exception.LengaburuException;
-import geektrust.problems.first.RelationshipFinder;
+import geektrust.problems.firstproblem.RelationshipFinder;
 
 /**
  * 

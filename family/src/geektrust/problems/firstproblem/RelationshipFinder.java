@@ -1,4 +1,4 @@
-package geektrust.problems.first;
+package geektrust.problems.firstproblem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,28 +9,28 @@ import geektrust.problems.entities.RoyalFamily;
 
 public class RelationshipFinder {
 	private RoyalFamily royalFamily = RoyalFamily.getRoyalFamilyInstance();
-	
+
 	public List<Individual> getRelativeDetails(String name, String relationship) {
-		
+
 		Individual individual = royalFamily.getIndividualByName(name);
-		
+
 		List<Individual> relatives = new ArrayList<>();
-		
-		
+
+
 		if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_BROTHER_IN_LAW)) {
 			relatives = getBrotherInLaw(individual);
 		}
 		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_BROTHERS)) {
-			relatives = getBrothers(individual);
+			relatives = getSiblings(individual, LengaburuConstants.GENDER_MALE);
 		}
 		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_CHILDREN)) {
-			relatives = getChildren(individual);
+			relatives = getChildren(individual, null);
 		}
 		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_COUSINS)) {
 			relatives = getCousins(individual);
 		}
 		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_DAUGHTER)) {
-			relatives = getDaughters(individual);
+			relatives = getChildren(individual, LengaburuConstants.GENDER_FEMALE);
 		}
 		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_FATHER)) {
 			relatives = getFather(individual);
@@ -57,19 +57,60 @@ public class RelationshipFinder {
 			relatives = getSisterInLaw(individual);
 		}
 		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_SISTERS)) {
-			relatives = getSisters(individual);
+			relatives = getSiblings(individual, LengaburuConstants.GENDER_FEMALE);
 		}
 		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_SON)) {
-			relatives = getSon(individual);
+			relatives = getChildren(individual, LengaburuConstants.GENDER_MALE);
 		}
-		
-		return relatives;
-			
-	}
 
-	private List<Individual> getDaughters(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
+		return relatives;
+
+	}
+//Clean This Mess
+	private List<Individual> getChildren(Individual individual, String gender) {
+		List<Individual> childrenList = new ArrayList<>();
+
+		if(individual.getGender().equalsIgnoreCase(LengaburuConstants.GENDER_FEMALE) && null!=individual.getSpouse()) {
+			for (Individual member : royalFamily.familyTree().keySet()) {
+				if(null==gender) {
+					if(null!=member.getFather() 
+							&& !(member.equals(individual))
+							&& member.getFather().equals(individual.getSpouse())) {
+						childrenList.add(member);
+					}
+				}
+				else {
+					if(null!=member.getFather() 
+							&& !(member.equals(individual))
+							&& member.getGender().equalsIgnoreCase(gender) 
+							&& member.getFather().equals(individual.getSpouse())) {
+						childrenList.add(member);
+					}
+				}
+			}
+		}
+		else if(individual.getGender().equalsIgnoreCase(LengaburuConstants.GENDER_MALE)){
+			for (Individual member : royalFamily.familyTree().keySet()) {
+				if(null==gender) {
+					if(null!=member.getFather() 
+							&& !(member.equals(individual))
+							&& member.getFather().equals(individual)) {
+						childrenList.add(member);
+					}
+				}
+				else {
+					if(null!=member.getFather() 
+							&& !(member.equals(individual))
+							&& member.getGender().equalsIgnoreCase(gender) 
+							&& member.getFather().equals(individual)) {
+						childrenList.add(member);
+					}
+				}
+			}
+		}
+
+
+		return childrenList;
 	}
 
 	private List<Individual> getFather(Individual individual) {
@@ -96,8 +137,16 @@ public class RelationshipFinder {
 	}
 
 	private List<Individual> getMother(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Individual> motherList = new ArrayList<>();
+
+		if(!getFather(individual).isEmpty()) {
+			Individual mother = getFather(individual).get(0).getSpouse();
+			if(null!=mother) {
+				motherList.add(mother);
+			}
+		}
+		return motherList;
 	}
 
 	private List<Individual> getPaternalAunt(Individual individual) {
@@ -115,29 +164,26 @@ public class RelationshipFinder {
 		return null;
 	}
 
-	private List<Individual> getSisters(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private List<Individual> getSon(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private List<Individual> getChildren(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	private List<Individual> getCousins(Individual individual) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private List<Individual> getBrothers(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
+	private List<Individual> getSiblings(Individual individual, String gender) {
+		List<Individual> siblingList = new ArrayList<>();
+		if(null!=individual.getFather()) {
+			for (Individual member : royalFamily.familyTree().keySet()) {
+				if(null!=member.getFather() 
+						&& !(member.equals(individual))
+						&& member.getGender().equalsIgnoreCase(gender) 
+						&& member.getFather().equals(individual.getFather())) {
+					siblingList.add(member);
+				}
+			}
+		}
+
+
+		return siblingList;
 	}
 
 	private List<Individual> getBrotherInLaw(Individual individual) {
