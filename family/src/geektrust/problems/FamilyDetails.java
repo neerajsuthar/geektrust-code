@@ -37,7 +37,7 @@ public class FamilyDetails {
 				int choice = input.nextInt();
 
 				switch (choice) {
-				case 1: solutionToProblem1();
+				case 1: solutionToProblem1(input);
 				break;
 
 				case 9: System.exit(0);
@@ -59,8 +59,7 @@ public class FamilyDetails {
 	}
 
 	@SuppressWarnings("resource")
-	private static void solutionToProblem1() throws LengaburuException {
-		Scanner input = new Scanner(System.in);
+	private static void solutionToProblem1(Scanner input) throws LengaburuException {
 		String relationships = "";
 
 		try{
