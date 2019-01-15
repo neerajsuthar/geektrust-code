@@ -1,12 +1,18 @@
 package geektrust.problems.constants;
 
+/**
+ * This is a constants class.
+ * 
+ * @author Neeraj Suthar
+ *
+ */
 public class LengaburuConstants {
-	
+
+	//Gender
 	public static final String GENDER_MALE = "Male";
 	public static final String GENDER_FEMALE = "Female";
-	
+
 	//Relationships
-	
 	public static final String RELATIONSHIP_PARENTAL_UNCLE = "Paternal-Uncle";
 	public static final String RELATIONSHIP_MATERNAL_UNCLE = "Maternal-Uncle";
 	public static final String RELATIONSHIP_PARENTAL_AUNT = "Paternal-Aunt";
@@ -22,8 +28,4 @@ public class LengaburuConstants {
 	public static final String RELATIONSHIP_BROTHERS = "Brothers";
 	public static final String RELATIONSHIP_SISTERS = "Sisters";
 	public static final String RELATIONSHIP_GRAND_DAUGHTER = "Grand-Daughters";
-	
-	
-	
-	
 }
