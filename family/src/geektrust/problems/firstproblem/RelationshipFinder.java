@@ -133,13 +133,24 @@ public class RelationshipFinder {
 	}
 
 	private List<Individual> getMaternalAunt(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Individual> maternalAuntList = new ArrayList<>();
+		if(!getFather(individual).isEmpty() && !getMother(individual).isEmpty()) {
+			maternalAuntList.addAll(getSiblings(getMother(individual).get(0), LengaburuConstants.GENDER_FEMALE));
+			maternalAuntList.addAll(getSisterInLaw(getMother(individual).get(0)));
+			
+		}
+		return maternalAuntList;
 	}
 
 	private List<Individual> getMaternalUncle(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Individual> maternalUncleList = new ArrayList<>();
+		if(!getFather(individual).isEmpty() && !getMother(individual).isEmpty()) {
+			maternalUncleList.addAll(getSiblings(getMother(individual).get(0), LengaburuConstants.GENDER_MALE));
+			maternalUncleList.addAll(getBrotherInLaw(getMother(individual).get(0)));			
+		}
+		return maternalUncleList;
 	}
 
 	private List<Individual> getMother(Individual individual) {
@@ -156,13 +167,21 @@ public class RelationshipFinder {
 	}
 
 	private List<Individual> getPaternalAunt(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Individual> paternalAuntList = new ArrayList<>();
+		if(!getFather(individual).isEmpty()) {
+			paternalAuntList.addAll(getSiblings(getFather(individual).get(0), LengaburuConstants.GENDER_FEMALE));
+			paternalAuntList.addAll(getSisterInLaw(getFather(individual).get(0)));
+		}
+		return paternalAuntList;
 	}
 
 	private List<Individual> getPaternalUncle(Individual individual) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Individual> paternalUncleList = new ArrayList<>();
+		if(!getFather(individual).isEmpty()) {
+			paternalUncleList.addAll(getSiblings(getFather(individual).get(0), LengaburuConstants.GENDER_MALE));
+			paternalUncleList.addAll(getBrotherInLaw(getFather(individual).get(0)));
+		}
+		return paternalUncleList;
 	}
 
 	private List<Individual> getSisterInLaw(Individual individual) {

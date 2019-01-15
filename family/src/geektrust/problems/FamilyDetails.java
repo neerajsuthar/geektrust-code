@@ -26,13 +26,14 @@ public class FamilyDetails {
 			char ans = 'y';
 
 			while(ans=='y'||ans=='Y') {
-				System.out.println("***---WELCOME TO ROYAL FAMILY OF LENGABURU---***\n\\n");
+				System.out.println("***---WELCOME TO ROYAL FAMILY OF LENGABURU---***\n\n");
 				System.out.println("Enter '1' to see the relative information.");
 				System.out.println("Enter '2' to add new member to the family.");
 				System.out.println("Enter '3' to see the mother of maximum girl child.");
 				System.out.println("Enter '4' to find the relaion between 2 people.");
 				System.out.println("Enter '9' to Exit.");
-
+				System.out.println("\n(Please refer to 'Read.Me' before proceeding)");
+				
 				System.out.println("\nEnter Your Choice : ");
 				int choice = input.nextInt();
 
