@@ -5,6 +5,13 @@ import java.util.Map;
 
 import geektrust.problems.constants.LengaburuConstants;
 
+/**
+ * This is a Singleton Class to generate Lengaburu's Royal Family. This class contains all the details of
+ * the Royal Family, which were present in {@link Individual} class.
+ * 
+ * @author Neeraj Suthar
+ *
+ */
 public class RoyalFamily {
 	//King and Queen
 	private Individual shan;
@@ -30,7 +37,6 @@ public class RoyalFamily {
 	private Individual savya;
 	private Individual saayan;
 
-
 	//Spouse of Grandchildren of King
 	private Individual jaya;
 	private Individual jnki;
@@ -51,11 +57,25 @@ public class RoyalFamily {
 	private Individual gru;
 	private static RoyalFamily royalFamily;
 
+	/**
+	 * private constructor to reduce the no. of instances to one. 
+	 * whenever the instance is created, 2 methods are called : 
+	 * <li>formFamily()</li> * To set the details of the family members
+	 * <li>setSpouse()</li> * To set the details of spouse of some family members
+	 * 
+	 * This is to load the details at the time of instantiation so that the user doesn't
+	 * have to call them externally.
+	 */
 	private RoyalFamily() {
 		formFamly();
 		setSpouse();
 	}
-	
+
+	/**
+	 * This method creates a singleton instance of {@link RoyalFamily} class if not present.
+	 * 
+	 * @return {@link RoyalFamily}
+	 */
 	public static RoyalFamily getRoyalFamilyInstance() {
 		if(null==royalFamily) {
 			royalFamily = new RoyalFamily();
@@ -63,7 +83,9 @@ public class RoyalFamily {
 		return royalFamily;
 	}
 
-
+	/**
+	 * This method sets the attributes to the members of the royal family.
+	 */
 	public void formFamly() {
 
 		shan = new Individual("Shan", 
@@ -246,6 +268,9 @@ public class RoyalFamily {
 
 	}
 
+	/**
+	 * This method sets the spouse details of members of the royal family
+	 */
 	private void setSpouse() {
 
 		shan.setSpouse(anga);
@@ -265,109 +290,121 @@ public class RoyalFamily {
 		lavnya.setSpouse(gru);		
 	}
 
-
-	public Individual getIndividualByName(String name){
+	/**
+	 * This method accepts a String name of a member of Royal Family and returns the record of the member.
+	 * 
+	 * @param memberName
+	 * @return {@link Individual}
+	 */
+	public Individual getIndividualByName(String memberName){
 
 		Individual familyMember = null;
 
-		if(name.equalsIgnoreCase(shan.getName())) {
+		if(memberName.equalsIgnoreCase(shan.getName())) {
 			familyMember = shan;
 		}
-		else if(name.equalsIgnoreCase(anga.getName())) {
+		else if(memberName.equalsIgnoreCase(anga.getName())) {
 			familyMember = anga;
 		}
-		else if(name.equalsIgnoreCase(ish.getName())) {
+		else if(memberName.equalsIgnoreCase(ish.getName())) {
 			familyMember = ish;
 		}
-		else if(name.equalsIgnoreCase(chit.getName())) {
+		else if(memberName.equalsIgnoreCase(chit.getName())) {
 			familyMember = chit;
 		}
-		else if(name.equalsIgnoreCase(vich.getName())) {
+		else if(memberName.equalsIgnoreCase(vich.getName())) {
 			familyMember = vich;
 		}
-		else if(name.equalsIgnoreCase(satya.getName())) {
+		else if(memberName.equalsIgnoreCase(satya.getName())) {
 			familyMember = satya;
 		}
-		else if(name.equalsIgnoreCase(ambi.getName())) {
+		else if(memberName.equalsIgnoreCase(ambi.getName())) {
 			familyMember = ambi;
 		}
-		else if(name.equalsIgnoreCase(lika.getName())) {
+		else if(memberName.equalsIgnoreCase(lika.getName())) {
 			familyMember = lika;
 		}
-		else if(name.equalsIgnoreCase(vyan.getName())) {
+		else if(memberName.equalsIgnoreCase(vyan.getName())) {
 			familyMember = vyan;
 		}
-		else if(name.equalsIgnoreCase(drita.getName())) {
+		else if(memberName.equalsIgnoreCase(drita.getName())) {
 			familyMember = drita;
 		}
-		else if(name.equalsIgnoreCase(vrita.getName())) {
+		else if(memberName.equalsIgnoreCase(vrita.getName())) {
 			familyMember = vrita;
 		}
-		else if(name.equalsIgnoreCase(vila.getName())) {
+		else if(memberName.equalsIgnoreCase(vila.getName())) {
 			familyMember = vila;
 		}
-		else if(name.equalsIgnoreCase(chika.getName())) {
+		else if(memberName.equalsIgnoreCase(chika.getName())) {
 			familyMember = chika;
 		}
-		else if(name.equalsIgnoreCase(satvy.getName())) {
+		else if(memberName.equalsIgnoreCase(satvy.getName())) {
 			familyMember = satvy;
 		}
-		else if(name.equalsIgnoreCase(savya.getName())) {
+		else if(memberName.equalsIgnoreCase(savya.getName())) {
 			familyMember = savya;
 		}
-		else if(name.equalsIgnoreCase(saayan.getName())) {
+		else if(memberName.equalsIgnoreCase(saayan.getName())) {
 			familyMember = saayan;
 		}
-		else if(name.equalsIgnoreCase(jaya.getName())) {
+		else if(memberName.equalsIgnoreCase(jaya.getName())) {
 			familyMember = jaya;
 		}
-		else if(name.equalsIgnoreCase(jnki.getName())) {
+		else if(memberName.equalsIgnoreCase(jnki.getName())) {
 			familyMember = jnki;
 		}
-		else if(name.equalsIgnoreCase(kpila.getName())) {
+		else if(memberName.equalsIgnoreCase(kpila.getName())) {
 			familyMember = kpila;
 		}
-		else if(name.equalsIgnoreCase(asva.getName())) {
+		else if(memberName.equalsIgnoreCase(asva.getName())) {
 			familyMember = asva;
 		}
-		else if(name.equalsIgnoreCase(krpi.getName())) {
+		else if(memberName.equalsIgnoreCase(krpi.getName())) {
 			familyMember = krpi;
 		}
-		else if(name.equalsIgnoreCase(mina.getName())) {
+		else if(memberName.equalsIgnoreCase(mina.getName())) {
 			familyMember = mina;
 		}
-		else if(name.equalsIgnoreCase(jata.getName())) {
+		else if(memberName.equalsIgnoreCase(jata.getName())) {
 			familyMember = jata;
 		}
-		else if(name.equalsIgnoreCase(driya.getName())) {
+		else if(memberName.equalsIgnoreCase(driya.getName())) {
 			familyMember = driya;
 		}
-		else if(name.equalsIgnoreCase(lavnya.getName())) {
+		else if(memberName.equalsIgnoreCase(lavnya.getName())) {
 			familyMember = lavnya;
 		}
-		else if(name.equalsIgnoreCase(kriya.getName())) {
+		else if(memberName.equalsIgnoreCase(kriya.getName())) {
 			familyMember = kriya;
 		}
-		else if(name.equalsIgnoreCase(misa.getName())) {
+		else if(memberName.equalsIgnoreCase(misa.getName())) {
 			familyMember = misa;
 		}
-		else if(name.equalsIgnoreCase(mnu.getName())) {
+		else if(memberName.equalsIgnoreCase(mnu.getName())) {
 			familyMember = mnu;
 		}
-		else if(name.equalsIgnoreCase(gru.getName())) {
+		else if(memberName.equalsIgnoreCase(gru.getName())) {
 			familyMember = gru;
 		}
 
 		return familyMember;
 	}
 
+	/**
+	 * This method generates and returns the Family Tree as a {@link Map} of Individual 
+	 * mapped to its level in the family. 
+	 * For eg. The King Shan is the root of the family, hence its level is 1. 
+	 * 
+	 * @return {@link LinkedHashMap}
+	 */
 	public Map<Individual,Integer>  familyTree(){
 
 		Map<Individual,Integer> familyTree = new LinkedHashMap<Individual,Integer>();
 
 		familyTree.put(shan, 1);
 		familyTree.put(anga, 1);
-		
+
 		familyTree.put(ish, 2);
 		familyTree.put(chit, 2);
 		familyTree.put(ambi, 2);
@@ -375,7 +412,7 @@ public class RoyalFamily {
 		familyTree.put(lika, 2);
 		familyTree.put(satya, 2);
 		familyTree.put(vyan, 2);
-		
+
 		familyTree.put(drita, 3);
 		familyTree.put(jaya, 3);
 		familyTree.put(vrita, 3);
@@ -389,7 +426,7 @@ public class RoyalFamily {
 		familyTree.put(krpi, 3);
 		familyTree.put(saayan, 3);
 		familyTree.put(mina, 3);
-		
+
 		familyTree.put(jata, 4);
 		familyTree.put(driya, 4);
 		familyTree.put(mnu, 4);
@@ -397,8 +434,7 @@ public class RoyalFamily {
 		familyTree.put(gru, 4);
 		familyTree.put(kriya, 4);
 		familyTree.put(misa, 4);
-		
+
 		return familyTree;
 	}	
-
 }

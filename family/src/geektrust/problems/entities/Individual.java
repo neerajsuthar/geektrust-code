@@ -3,16 +3,15 @@
  */
 package geektrust.problems.entities;
 
-import java.util.List;
-
 /**
- * This 
+ * This is POJO and can act as the DAO class if Hibernate is plugedin to the code.
  * 
  * @author Neeraj Suthar
  *
  */
 public class Individual {
 
+	//Attributes of the Individual
 	private String name;
 	private String gender;
 	private Individual spouse;
@@ -20,9 +19,18 @@ public class Individual {
 	private String details;
 
 	public Individual() {
-		// TODO Auto-generated constructor stub
+		// Unused as of now.
 	}
 
+	/**
+	 * Parameterised constructor with Individual's attributes
+	 * 
+	 * @param name
+	 * @param gender
+	 * @param spouse
+	 * @param father
+	 * @param details
+	 */
 	public Individual(String name, String gender, Individual spouse, Individual father, String details) {
 		super();
 		this.name = name;
