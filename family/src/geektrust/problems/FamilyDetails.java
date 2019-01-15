@@ -11,7 +11,7 @@ import geektrust.problems.exception.LengaburuException;
 import geektrust.problems.solutioncode.RelationshipFinder;
 
 /**
- * This is the Runner Class of Lengaburu's Family Portal
+ * Runner Class of Lengaburu's Family Portal
  * 
  * @author Neeraj Suthar
  *
