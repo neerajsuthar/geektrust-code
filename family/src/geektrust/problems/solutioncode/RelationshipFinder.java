@@ -3,6 +3,8 @@ package geektrust.problems.solutioncode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import geektrust.problems.constants.LengaburuConstants;
 import geektrust.problems.entities.Individual;
@@ -32,50 +34,75 @@ public class RelationshipFinder {
 
 		List<Individual> relatives = new ArrayList<>();
 
-		if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_BROTHER_IN_LAW)) {
+		switch (relationship) {
+
+		case LengaburuConstants.RELATIONSHIP_BROTHER_IN_LAW: 
 			relatives = getBrotherInLaw(individual);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_BROTHERS)) {
+			break;
+
+		case LengaburuConstants.RELATIONSHIP_BROTHERS: 
 			relatives = getSiblings(individual, LengaburuConstants.GENDER_MALE);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_CHILDREN)) {
+			break;
+
+		case LengaburuConstants.RELATIONSHIP_CHILDREN: 
 			relatives = getChildren(individual, null);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_COUSINS)) {
+			break;
+
+
+		case LengaburuConstants.RELATIONSHIP_COUSINS: 
 			relatives = getCousins(individual);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_DAUGHTER)) {
+			break;
+
+
+		case LengaburuConstants.RELATIONSHIP_DAUGHTER: 
 			relatives = getChildren(individual, LengaburuConstants.GENDER_FEMALE);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_FATHER)) {
+			break;
+
+
+		case LengaburuConstants.RELATIONSHIP_FATHER: 
 			relatives = getFather(individual);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_GRAND_DAUGHTER)) {
+			break;
+
+
+		case LengaburuConstants.RELATIONSHIP_GRAND_DAUGHTER: 
 			relatives = getGrandDaughter(individual);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_MATERNAL_AUNT)) {
+			break;
+
+
+		case LengaburuConstants.RELATIONSHIP_MATERNAL_AUNT: 
 			relatives = getMaternalAunt(individual);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_MATERNAL_UNCLE)) {
-			relatives = getMaternalUncle(individual);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_MOTHER)) {
+			break;
+
+		case LengaburuConstants.RELATIONSHIP_MATERNAL_UNCLE: 
+			relatives = getMaternalAunt(individual);
+			break;
+
+		case LengaburuConstants.RELATIONSHIP_MOTHER: 
 			relatives = getMother(individual);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_PARENTAL_AUNT)) {
+			break;
+
+		case LengaburuConstants.RELATIONSHIP_PARENTAL_AUNT: 
 			relatives = getPaternalAunt(individual);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_PARENTAL_UNCLE)) {
+			break;
+
+		case LengaburuConstants.RELATIONSHIP_PARENTAL_UNCLE: 
 			relatives = getPaternalUncle(individual);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_SISTER_IN_LAW)) {
+			break;
+
+		case LengaburuConstants.RELATIONSHIP_SISTER_IN_LAW: 
 			relatives = getSisterInLaw(individual);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_SISTERS)) {
+			break;
+
+		case LengaburuConstants.RELATIONSHIP_SISTERS: 
 			relatives = getSiblings(individual, LengaburuConstants.GENDER_FEMALE);
-		}
-		else if(relationship.equalsIgnoreCase(LengaburuConstants.RELATIONSHIP_SON)) {
+			break;
+
+		case LengaburuConstants.RELATIONSHIP_SON: 
 			relatives = getChildren(individual, LengaburuConstants.GENDER_MALE);
+			break;
+
+		default:
+			break;
 		}
 
 		return relatives;
@@ -95,45 +122,16 @@ public class RelationshipFinder {
 	private List<Individual> getChildren(Individual individual, String gender) {
 		List<Individual> childrenList = new ArrayList<>();
 
-		if(individual.getGender().equalsIgnoreCase(LengaburuConstants.GENDER_FEMALE) && null!=individual.getSpouse()) {
-			for (Individual member : royalFamily.familyTree().keySet()) {
-				if(null==gender) {
-					if(null!=member.getFather() 
-							&& !(member.equals(individual))
-							&& member.getFather().equals(individual.getSpouse())) {
-						childrenList.add(member);
-					}
-				}
-				else {
-					if(null!=member.getFather() 
-							&& !(member.equals(individual))
-							&& member.getGender().equalsIgnoreCase(gender) 
-							&& member.getFather().equals(individual.getSpouse())) {
-						childrenList.add(member);
-					}
-				}
-			}
-		}
-		else if(individual.getGender().equalsIgnoreCase(LengaburuConstants.GENDER_MALE)){
-			for (Individual member : royalFamily.familyTree().keySet()) {
-				if(null==gender) {
-					if(null!=member.getFather() 
-							&& !(member.equals(individual))
-							&& member.getFather().equals(individual)) {
-						childrenList.add(member);
-					}
-				}
-				else {
-					if(null!=member.getFather() 
-							&& !(member.equals(individual))
-							&& member.getGender().equalsIgnoreCase(gender) 
-							&& member.getFather().equals(individual)) {
-						childrenList.add(member);
-					}
-				}
-			}
-		}
+		childrenList=familyStream()
+				.filter(e->null!=e.getFather()
+				&& e.getFather()
+				.getName()
+				.equalsIgnoreCase(individual.getName()))
+				.collect(Collectors.toList());
 
+		if(null!=gender) {
+			childrenList = childrenList.stream().filter(e-> e.getGender().equalsIgnoreCase(gender)).collect(Collectors.toList());
+		}
 
 		return childrenList;
 	}
@@ -315,24 +313,15 @@ public class RelationshipFinder {
 	private List<Individual> getSiblings(Individual individual, String gender) {
 		List<Individual> siblingList = new ArrayList<>();
 		if(null!=individual.getFather()) {
-			for (Individual member : royalFamily.familyTree().keySet()) {
-				if(null!=member.getFather() 
-						&& !(member.equals(individual))
 
-						&& member.getFather().equals(individual.getFather())) {
-					if(null==gender){
-						siblingList.add(member);	
-					}
-					else if(member.getGender().equalsIgnoreCase(gender)) {
-						siblingList.add(member);
-					}
-
-
-				}
+			siblingList = familyStream().filter(e->null!=e.getFather()
+					&& e.getFather().getName().equalsIgnoreCase(individual.getFather().getName())
+					).collect(Collectors.toList());
+			if(null!=gender) {
+				siblingList = siblingList.stream().filter(e->e.getGender().equalsIgnoreCase(gender)).collect(Collectors.toList());
 			}
+
 		}
-
-
 		return siblingList;
 	}
 
@@ -377,7 +366,6 @@ public class RelationshipFinder {
 				throw new LengaburuException("Father Details not present in the Family Tree");
 			}
 		}
-
 		//Adding newBorn to the family
 		familyTree.put(newBorn, fathersLevel+1);
 	}
@@ -390,6 +378,10 @@ public class RelationshipFinder {
 	 */
 	public Individual findIndividualByName(String memberName) {
 		return royalFamily.getIndividualByName(memberName);
+	}
+
+	private Stream<Individual> familyStream(){
+		return royalFamily.familyTree().keySet().stream();
 	}
 
 }
